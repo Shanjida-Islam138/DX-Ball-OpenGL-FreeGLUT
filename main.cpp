@@ -6,7 +6,6 @@
 #include "game.h"
 
 int gameState=0;
-
 void display(){
 
     glClear(GL_COLOR_BUFFER_BIT);
@@ -28,7 +27,7 @@ void display(){
     else if(gameState==2)
         drawLevelScreen();
 
-    glFlush();
+    glutSwapBuffers();
 }
 
 void timer(int v){
@@ -53,7 +52,7 @@ int main(int argc,char** argv){
 
     glutInit(&argc,argv);
 
-    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 
     glutInitWindowSize(800,600);
 

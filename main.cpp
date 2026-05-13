@@ -65,6 +65,8 @@ int main(int argc,char** argv){
     glutKeyboardFunc(handleInput);
 
     glutSpecialFunc(handleSpecial);
+    glutMouseFunc(mouseClick);
+
 
     glutTimerFunc(0,timer,0);
 

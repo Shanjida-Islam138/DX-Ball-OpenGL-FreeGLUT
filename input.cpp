@@ -21,7 +21,7 @@ void handleInput(unsigned char key,int x,int y){
         }
 
         else if(key=='3'){
-            exit(0);
+           exit(0);
         }
     }
 
@@ -45,10 +45,10 @@ void handleInput(unsigned char key,int x,int y){
 
     else if(gameState==1){
 
-        if(key=='m'){
-            gameState=0;
-        }
+    if(key=='m'){
+        gameState=0;
     }
+}
 
     glutPostRedisplay();
 }

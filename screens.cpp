@@ -43,16 +43,35 @@ void drawGameScreen(){
 void drawLevelScreen(){
 
     glColor3f(1,1,1);
-    drawText(300,500,"SELECT LEVEL");
 
-    glColor3f(0,1,1);
-    drawText(300,400,"PRESS 1 : LEVEL 1");
+    drawText(280,500,"SELECT LEVEL");
 
-    glColor3f(1,0.4,0);
-    drawText(300,340,"PRESS 2 : LEVEL 2");
+    // LEVEL 1 BUTTON
+    glColor3f(0,0.5,1);
 
-    glColor3f(1,0,1);
-    drawText(300,280,"PRESS 3 : LEVEL 3");
+    glRectf(250,380,550,430);
+
+    glColor3f(1,1,1);
+
+    drawText(340,400,"LEVEL 1");
+
+    // LEVEL 2 BUTTON
+    glColor3f(0,0.8,0.3);
+
+    glRectf(250,300,550,350);
+
+    glColor3f(1,1,1);
+
+    drawText(340,320,"LEVEL 2");
+
+    // LEVEL 3 BUTTON
+    glColor3f(1,0,0.5);
+
+    glRectf(250,220,550,270);
+
+    glColor3f(1,1,1);
+
+    drawText(340,240,"LEVEL 3");
 }
 
 void drawGameOver(){

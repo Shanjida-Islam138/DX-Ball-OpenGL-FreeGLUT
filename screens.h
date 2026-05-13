@@ -3,5 +3,6 @@
 
 void drawGameScreen();
 void drawLevelScreen();
+void drawGameOver();
 
 #endif

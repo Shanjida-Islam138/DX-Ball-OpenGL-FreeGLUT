@@ -61,11 +61,11 @@ void drawMenu(){
 
     glColor3f(glow,glow,1);
 
-    drawText(250,520,"DX BALL");
+    drawText(360,480,"DX BALL");
 
     glColor3f(0,1,1);
 
-    drawText(220,480,"CYBER EDITION");
+    drawText(325,440,"CYBER EDITION");
 
     // ROTATING BALL
     float bx = 650 + sin(anim)*20;
@@ -116,9 +116,9 @@ void drawMenu(){
     // FOOTER
     glColor3f(0.8,0.8,0.8);
 
-    drawText(170,70,
+    drawText(230,70,
     "OPENGL DX BALL - ULTIMATE ARCADE");
 
-    drawText(250,40,
+    drawText(335,40,
     "PRESS 1 / 2 / 3");
 }

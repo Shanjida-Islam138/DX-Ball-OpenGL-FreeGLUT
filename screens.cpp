@@ -44,7 +44,7 @@ void drawLevelScreen(){
 
     glColor3f(1,1,1);
 
-    drawText(280,500,"SELECT LEVEL");
+    drawText(340,500,"SELECT LEVEL");
 
     // LEVEL 1 BUTTON
     glColor3f(0,0.5,1);
@@ -53,7 +53,7 @@ void drawLevelScreen(){
 
     glColor3f(1,1,1);
 
-    drawText(340,400,"LEVEL 1");
+    drawText(365,400,"LEVEL 1");
 
     // LEVEL 2 BUTTON
     glColor3f(0,0.8,0.3);
@@ -62,7 +62,7 @@ void drawLevelScreen(){
 
     glColor3f(1,1,1);
 
-    drawText(340,320,"LEVEL 2");
+    drawText(365,320,"LEVEL 2");
 
     // LEVEL 3 BUTTON
     glColor3f(1,0,0.5);
@@ -71,14 +71,14 @@ void drawLevelScreen(){
 
     glColor3f(1,1,1);
 
-    drawText(340,240,"LEVEL 3");
+    drawText(365,240,"LEVEL 3");
 }
 
 void drawGameOver(){
 
     glColor3f(1,0,0);
-    drawText(320,350,"GAME OVER");
+    drawText(350,350,"GAME OVER");
 
     glColor3f(1,1,1);
-    drawText(250,280,"PRESS M TO RETURN MENU");
+    drawText(275,280,"PRESS M TO RETURN MENU");
 }

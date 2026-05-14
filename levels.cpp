@@ -1,7 +1,7 @@
 #include <GL/glut.h>
 #include "levels.h"
 #include "game.h"
-
+int currentLevel = 1;
 Brick bricks[50];
 
 void initLevel(int level){
@@ -43,4 +43,19 @@ void drawBricks(){
                     bricks[i].y+20);
         }
     }
+}
+void mouseMove(int x,int y){
+
+    // Mouse X position controls paddle
+    paddleX = x - 50;
+
+    // LEFT boundary
+    if(paddleX < 0)
+        paddleX = 0;
+
+    // RIGHT boundary
+    if(paddleX > 700)
+        paddleX = 700;
+
+    glutPostRedisplay();
 }

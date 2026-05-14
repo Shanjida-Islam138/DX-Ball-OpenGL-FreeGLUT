@@ -66,6 +66,7 @@ int main(int argc,char** argv){
 
     glutSpecialFunc(handleSpecial);
     glutMouseFunc(mouseClick);
+    glutPassiveMotionFunc(mouseMove);
 
 
     glutTimerFunc(0,timer,0);

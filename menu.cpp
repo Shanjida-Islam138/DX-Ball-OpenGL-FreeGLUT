@@ -1,124 +1,182 @@
-#include <GL/glut.h>
-#include <math.h>
-
 #include "menu.h"
 #include "ui.h"
 
-float anim = 0;
+#include <GL/glut.h>
+#include <math.h>
 
-void drawButton(float x,float y,
-                const char* text,
-                float r,float g,float b){
+float menuAnim = 0;
 
-    // SHADOW
+void drawCircle3D(float cx,float cy,float r){
+
+    // OUTER SHADOW
     glColor4f(0,0,0,0.4);
 
-    glBegin(GL_QUADS);
+    glBegin(GL_POLYGON);
 
-    glVertex2f(x+5,y-5);
-    glVertex2f(x+255,y-5);
-    glVertex2f(x+255,y+55);
-    glVertex2f(x+5,y+55);
+    for(int i=0;i<360;i++){
 
-    glEnd();
+        float t=i*3.1416/180;
 
-    // MAIN BUTTON
-    glColor3f(r,g,b);
-
-    glBegin(GL_QUADS);
-
-    glVertex2f(x,y);
-    glVertex2f(x+250,y);
-    glVertex2f(x+250,y+50);
-    glVertex2f(x,y+50);
+        glVertex2f(
+            cx+cos(t)*(r+8),
+            cy+sin(t)*(r+8)
+        );
+    }
 
     glEnd();
 
-    // BORDER
-    glColor3f(1,1,1);
+    // MAIN BALL
+    glBegin(GL_POLYGON);
+
+    for(int i=0;i<360;i++){
+
+        float t=i*3.1416/180;
+
+        // glossy red-white effect
+        if(i%40<20)
+            glColor3f(0.9,0.1,0.1);
+        else
+            glColor3f(0.95,0.95,0.95);
+
+        glVertex2f(
+            cx+cos(t)*r,
+            cy+sin(t)*r
+        );
+    }
+
+    glEnd();
+
+    // LIGHT REFLECTION
+    glColor4f(1,1,1,0.4);
+
+    glBegin(GL_POLYGON);
+
+    for(int i=0;i<360;i++){
+
+        float t=i*3.1416/180;
+
+        glVertex2f(
+            cx-20+cos(t)*18,
+            cy+20+sin(t)*18
+        );
+    }
+
+    glEnd();
+}
+
+void drawPanel(){
+
+    // OUTER METAL
+    glColor3f(0.7,0.7,0.75);
+
+    glRectf(180,430,620,540);
+
+    // INNER DARK
+    glColor3f(0.02,0.02,0.02);
+
+    glRectf(195,445,605,525);
+
+    // GLOW BORDER
+    glLineWidth(4);
+
+    glColor3f(0,0.8,1);
 
     glBegin(GL_LINE_LOOP);
 
-    glVertex2f(x,y);
-    glVertex2f(x+250,y);
-    glVertex2f(x+250,y+50);
-    glVertex2f(x,y+50);
+    glVertex2f(195,445);
+    glVertex2f(605,445);
+    glVertex2f(605,525);
+    glVertex2f(195,525);
 
     glEnd();
+}
+
+void drawButton(float x,float y,
+                const char* txt,
+                float r,float g,float b)
+{
+    // GLOW
+    glColor4f(r,g,b,0.2);
+
+    glRectf(x-5,y-5,x+260,y+55);
+
+    // BUTTON BODY
+    glColor3f(r,g,b);
+
+    glRectf(x,y,x+250,y+50);
+
+    // INNER
+    glColor3f(0.03,0.03,0.03);
+
+    glRectf(x+4,y+4,x+246,y+46);
 
     // TEXT
     glColor3f(1,1,1);
 
-    drawText(x+60,y+18,text);
+    drawText(x+55,y+18,txt);
 }
 
 void drawMenu(){
 
-    anim += 0.02;
+    menuAnim += 0.03;
 
-    // TITLE GLOW
-    float glow = 0.7 + fabs(sin(anim))*0.3;
+    // MAIN PANEL
+    drawPanel();
 
-    glColor3f(glow,glow,1);
+    // TITLE
+    float pulse = fabs(sin(menuAnim));
 
-    drawText(360,480,"DX BALL");
+    glColor3f(0.8+pulse*0.2,
+              0.8+pulse*0.2,
+              1);
 
-    glColor3f(0,1,1);
+    drawText(285,485,"CYBER DX-BALL");
 
-    drawText(325,440,"CYBER EDITION");
-
-    // ROTATING BALL
-    float bx = 650 + sin(anim)*20;
-    float by = 430 + cos(anim)*10;
-
-    glColor3f(1,0.2,0.2);
-
-    glBegin(GL_POLYGON);
+    // SIDE LIGHTS
+    glColor4f(1,1,1,0.25);
 
     for(int i=0;i<360;i++){
 
         float t=i*3.1416/180;
 
-        glVertex2f(bx+cos(t)*35,
-                   by+sin(t)*35);
+        glBegin(GL_POLYGON);
+
+        glVertex2f(150+cos(t)*45,
+                   485+sin(t)*45);
+
+        glVertex2f(650+cos(t)*45,
+                   485+sin(t)*45);
+
+        glEnd();
     }
 
-    glEnd();
+    // 3D BALL
+    glPushMatrix();
 
-    // INNER BALL LIGHT
-    glColor3f(1,1,1);
+    glTranslatef(610,230,0);
 
-    glBegin(GL_POLYGON);
+    glRotatef(menuAnim*40,0,0,1);
 
-    for(int i=0;i<360;i++){
+    drawCircle3D(0,0,75);
 
-        float t=i*3.1416/180;
-
-        glVertex2f(bx+10+cos(t)*10,
-                   by+10+sin(t)*10);
-    }
-
-    glEnd();
+    glPopMatrix();
 
     // BUTTONS
-    drawButton(270,340,
+    drawButton(220,320,
                "START GAME",
-               0.0,0.4,1.0);
+               0,0.6,1);
 
-    drawButton(270,260,
+    drawButton(220,240,
                "LEVEL SELECT",
-               0.0,0.7,0.4);
+               0,0.9,0.5);
 
-    drawButton(270,180,
+    drawButton(220,160,
                "EXIT GAME",
-               0.8,0.1,0.1);
+               1,0.2,0.2);
 
     // FOOTER
     glColor3f(0.8,0.8,0.8);
 
-    drawText(230,70,
-    "OPENGL DX BALL - ULTIMATE ARCADE");
-
-    drawText(335,40,
-    "PRESS 1 / 2 / 3");
+    drawText(240,90,
+    "Mouse + Keyboard Supported");
 }

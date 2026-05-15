@@ -43,20 +43,19 @@ void drawGameScreen(){
 }
 
 void drawLevelScreen() {
-    drawStars(); // আপনার চাওয়া অনুযায়ী স্টার অ্যানিমেশন
+    drawStars(); 
 
     glColor3f(1, 1, 1);
     drawText(340, 500, "SELECT LEVEL");
 
-    // মাউসের Y কোঅর্ডিনেট OpenGL এর সাথে মিলানোর জন্য কনভার্ট করা (600 - mouse_y)
+    
     int my = 600 - mouse_y;
 
-    // --- LEVEL 1 BUTTON ---
-    // চেক করা হচ্ছে মাউস লেভেল ১ এর বক্সের ভেতরে আছে কি না
+    
     if (mouse_x >= 250 && mouse_x <= 550 && my >= 380 && my <= 430)
-        glColor3f(0.0, 0.7, 1.0); // হোভার কালার (হালকা নীল)
+        glColor3f(0.0, 0.7, 1.0); 
     else
-        glColor3f(0.0, 0.5, 1.0); // সাধারণ কালার
+        glColor3f(0.0, 0.5, 1.0); 
 
     glRectf(250, 380, 550, 430);
     glColor3f(1, 1, 1);
@@ -64,9 +63,9 @@ void drawLevelScreen() {
 
     // --- LEVEL 2 BUTTON ---
     if (mouse_x >= 250 && mouse_x <= 550 && my >= 300 && my <= 350)
-        glColor3f(0.0, 1.0, 0.5); // হোভার কালার (হালকা সবুজ)
+        glColor3f(0.0, 1.0, 0.5); 
     else
-        glColor3f(0.0, 0.8, 0.3); // সাধারণ কালার
+        glColor3f(0.0, 0.8, 0.3); 
 
     glRectf(250, 300, 550, 350);
     glColor3f(1, 1, 1);
@@ -74,9 +73,9 @@ void drawLevelScreen() {
 
     // --- LEVEL 3 BUTTON ---
     if (mouse_x >= 250 && mouse_x <= 550 && my >= 220 && my <= 270)
-        glColor3f(1.0, 0.3, 0.7); // হোভার কালার (হালকা গোলাপী)
+        glColor3f(1.0, 0.3, 0.7); 
     else
-        glColor3f(1.0, 0.0, 0.5); // সাধারণ কালার
+        glColor3f(1.0, 0.0, 0.5); 
 
     glRectf(250, 220, 550, 270);
     glColor3f(1, 1, 1);

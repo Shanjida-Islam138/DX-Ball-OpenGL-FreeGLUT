@@ -30,29 +30,28 @@ void checkBrickCollision(){
     }
 }
 
-// ২. প্যাডেল কলাইড চেক (প্যাডেলের সাথে ধাক্কা)
-// এই ফাংশনটি নিচে যোগ করুন অথবা updatePhysics এর ভেতর লিখুন
+
 void checkPaddleCollision() {
-    // প্যাডেলের হাইট ১০ পিক্সেল ধরে (paddleY থেকে paddleY+10 পর্যন্ত)
+    
     if (ballX >= paddleX && ballX <= paddleX + 100 && 
         ballY <= paddleY + 10 && ballY >= paddleY) 
     {
-        if(ballDY < 0) { // বলটি যখন নিচের দিকে নামছে শুধু তখনই ধাক্কা খাবে
+        if(ballDY < 0) { 
             ballDY *= -1;     
             playHitSound();
         }
     }
 }
 
-// ৩. মেইন ফিজিক্স আপডেট ফাংশন
+
 void updatePhysics() {
-    // বলের মুভমেন্ট কোড...
+    
     ballX += ballDX;
     ballY += ballDY;
 
-    // ফাংশনগুলো কল করা
-    checkBrickCollision();
-    checkPaddleCollision(); // এখানে প্যাডেলের লজিকটি কল হবে
     
-    // দেয়ালের সাথে ধাক্কা চেক...
+    checkBrickCollision();
+    checkPaddleCollision(); 
+    
+    
 }

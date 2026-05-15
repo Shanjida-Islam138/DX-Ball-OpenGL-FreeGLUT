@@ -116,13 +116,7 @@ void drawMenu() {
     fireText(320, 500, "DX BALL", true);
 
 
-    glColor3f(0, 0.8, 1);
-    glLineWidth(3);
-    glBegin(GL_LINE_STRIP);
-    for(int i=0; i<20; i++){
-        glVertex2f(280 + i*12, 480 + sin(anim + i)*5);
-    }
-    glEnd();
+    
 
     
     drawMenuButton(230, 340, "NEW GAME", 1);

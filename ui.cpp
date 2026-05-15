@@ -3,6 +3,7 @@
 #include <stdlib.h>
 
 #include "ui.h"
+float anim = 0; // এটি হলো মেইন ভেরিয়েবল যা এখন সব ফাইল চিনবে
 
 float bgAnim = 0;
 
@@ -17,6 +18,21 @@ void drawText(float x,float y,const char* text){
             text[i]
         );
     }
+}
+
+float starY[25] = {600, 550, 500, 450, 400, 350, 300, 250, 200, 150, 580, 480, 380, 280, 180, 520, 420, 320, 220, 120, 590, 490, 390, 290, 190};
+float starX[25] = {100, 200, 300, 400, 500, 600, 700, 50, 150, 250, 350, 450, 550, 650, 750, 120, 220, 420, 620, 720, 30, 130, 230, 330, 430};
+
+void drawStars() {
+    glColor3f(0.8, 0.8, 1.0); // হালকা নীলচে সাদা রঙ
+    glPointSize(1.5); // বিন্দুর সাইজ
+    glBegin(GL_POINTS);
+    for(int i = 0; i < 25; i++) {
+        glVertex2f(starX[i], starY[i]);
+        starY[i] -= 0.5; // নিচে নামার গতি (এটি পরিবর্তন করে গতি নিয়ন্ত্রণ করতে পারেন)
+        if(starY[i] < 0) starY[i] = 600; // নিচে চলে গেলে আবার উপরে ফিরে আসবে
+    }
+    glEnd();
 }
 
 void drawBackground(){

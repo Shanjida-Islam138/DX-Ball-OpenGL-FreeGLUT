@@ -44,18 +44,18 @@ void drawBricks(){
         }
     }
 }
-void mouseMove(int x,int y){
+// void mouseMove(int x,int y){
 
     // Mouse X position controls paddle
-    paddleX = x - 50;
+    //paddleX = x - 50;
 
     // LEFT boundary
-    if(paddleX < 0)
-        paddleX = 0;
+    //if(paddleX < 0)
+       // paddleX = 0;
 
     // RIGHT boundary
-    if(paddleX > 700)
-        paddleX = 700;
+    //if(paddleX > 700)
+      //  paddleX = 700;
 
-    glutPostRedisplay();
-}
+    //glutPostRedisplay();
+//}

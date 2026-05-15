@@ -27,6 +27,7 @@ void display(){
     else if(gameState==2)
         drawLevelScreen();
 
+    drawStars();
     glutSwapBuffers();
 }
 
@@ -51,6 +52,8 @@ void init(){
 int main(int argc,char** argv){
 
     glutInit(&argc,argv);
+  
+    glutPassiveMotionFunc(mouseMove);
 
    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 

@@ -3,5 +3,6 @@
 
 void drawText(float x,float y,const char* text);
 void drawBackground();
+void drawStars();
 
 #endif

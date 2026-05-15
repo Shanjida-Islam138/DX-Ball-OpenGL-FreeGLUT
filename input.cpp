@@ -4,6 +4,10 @@
 #include "input.h"
 #include "game.h"
 #include "levels.h"
+#include "sound.h"
+
+int mouse_x = 0;
+int mouse_y = 0;
 
 extern int gameState;
 
@@ -94,6 +98,7 @@ void mouseClick(int button,int state,int x,int y){
                 initLevel(1);
 
                 gameState = 1;
+                playLevelMusic();
             }
 
             // LEVEL SELECT
@@ -121,6 +126,7 @@ void mouseClick(int button,int state,int x,int y){
                 initLevel(1);
 
                 gameState = 1;
+                playLevelMusic();
             }
 
             // LEVEL 2
@@ -130,6 +136,7 @@ void mouseClick(int button,int state,int x,int y){
                 initLevel(2);
 
                 gameState = 1;
+                playLevelMusic();
             }
 
             // LEVEL 3
@@ -139,9 +146,37 @@ void mouseClick(int button,int state,int x,int y){
                 initLevel(3);
 
                 gameState = 1;
+                playLevelMusic();
             }
         }
     }
 
     glutPostRedisplay();
+}
+
+
+void mouseMove(int x, int y) {
+    // গ্লোবাল ভেরিয়েবলে মাউসের পজিশন সেভ করা হচ্ছে
+    mouse_x = x;
+    mouse_y = y;
+
+    // ================= গেমের ভেতর মাউস কন্ট্রোল (gameState 1) =================
+    if(gameState == 1) {
+        // মাউসের X পজিশন অনুযায়ী প্যাডেল সরবে
+        // প্যাডেলের উইডথ যদি ১০০ হয়, তবে মাঝখানে মাউস রাখতে -৫০ করতে হয়
+        paddleX = x - 50; 
+
+        // প্যাডেল যেন স্ক্রিনের বাইরে চলে না যায় (Boundary Check)
+        if(paddleX < 0) 
+            paddleX = 0;
+        if(paddleX > 700) // আপনার স্ক্রিন ৮০০ হলে এবং প্যাডেল ১০০ হলে ৭০০ হবে
+            paddleX = 700;
+    }
+
+    // মেনু স্ক্রিনে হোভার ইফেক্টের জন্য
+    if(gameState == 0 || gameState == 2) {
+        glutPostRedisplay();
+    }
+    
+    glutPostRedisplay(); // সব স্টেটে মুভমেন্ট স্মুথ রাখার জন্য
 }

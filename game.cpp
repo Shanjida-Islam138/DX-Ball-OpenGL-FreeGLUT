@@ -13,6 +13,7 @@ float ballDX = 5;
 float ballDY = 5;
 
 float paddleX = 350;
+float paddleY = 40;
 
 int score = 0;
 int lives = 3;

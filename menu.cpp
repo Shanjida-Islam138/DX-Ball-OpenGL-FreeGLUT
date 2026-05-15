@@ -127,5 +127,4 @@ void drawMenu() {
     drawPreviewBox();
 
    
-    fireText(300, 70, "OPENGL DX BALL PROJECT", false);
 }

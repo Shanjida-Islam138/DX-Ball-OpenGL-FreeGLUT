@@ -4,12 +4,119 @@
 #include <GL/glut.h>
 #include <math.h>
 
-float menuAnim = 0;
+float anim=0;
 
-void drawCircle3D(float cx,float cy,float r){
+void neonText(float x,float y,const char* txt,
+               float r,float g,float b){
 
-    // OUTER SHADOW
-    glColor4f(0,0,0,0.4);
+    // glow
+    glColor4f(r,g,b,0.2);
+
+    for(int i=-3;i<=3;i++){
+
+        glRasterPos2f(x+i,y);
+
+        for(int j=0;txt[j]!='\0';j++)
+            glutBitmapCharacter(
+                GLUT_BITMAP_TIMES_ROMAN_24,
+                txt[j]
+            );
+    }
+
+    // main text
+    glColor3f(r,g,b);
+
+    glRasterPos2f(x,y);
+
+    for(int j=0;txt[j]!='\0';j++)
+        glutBitmapCharacter(
+            GLUT_BITMAP_TIMES_ROMAN_24,
+            txt[j]
+        );
+}
+
+void drawMenuButton(float x,float y,
+                    const char* txt,
+                    int active){
+
+    if(active){
+
+        glColor3f(1,0.5,0);
+
+        glRectf(x,y,x+320,y+55);
+
+        glColor3f(1,1,0);
+
+        glBegin(GL_LINE_LOOP);
+
+        glVertex2f(x,y);
+        glVertex2f(x+320,y);
+        glVertex2f(x+320,y+55);
+        glVertex2f(x,y+55);
+
+        glEnd();
+
+        // selector arrow
+        glColor3f(1,1,1);
+
+        glBegin(GL_TRIANGLES);
+
+        glVertex2f(x-40,y+27);
+        glVertex2f(x-10,y+45);
+        glVertex2f(x-10,y+10);
+
+        glEnd();
+    }
+
+    neonText(
+        x+35,
+        y+18,
+        txt,
+        1,
+        1,
+        1
+    );
+}
+
+void drawPreviewBox(){
+
+    glColor3f(0.1,0.1,0.2);
+
+    glRectf(520,240,700,420);
+
+    glColor3f(0,1,1);
+
+    glBegin(GL_LINE_LOOP);
+
+    glVertex2f(520,240);
+    glVertex2f(700,240);
+    glVertex2f(700,420);
+    glVertex2f(520,420);
+
+    glEnd();
+
+    // fake game bricks
+    for(int i=0;i<4;i++){
+
+        for(int j=0;j<5;j++){
+
+            glColor3f(
+                0.3+j*0.1,
+                0.2,
+                1
+            );
+
+            glRectf(
+                530+j*32,
+                380-i*28,
+                555+j*32,
+                398-i*28
+            );
+        }
+    }
+
+    // ball
+    glColor3f(1,1,1);
 
     glBegin(GL_POLYGON);
 
@@ -18,126 +125,124 @@ void drawCircle3D(float cx,float cy,float r){
         float t=i*3.1416/180;
 
         glVertex2f(
-            cx+cos(t)*(r+8),
-            cy+sin(t)*(r+8)
+            610+cos(t)*12,
+            290+sin(t)*12
         );
     }
 
     glEnd();
 
-    // MAIN BALL
+    // paddle
+    glColor3f(1,0.5,0);
+
+    glRectf(560,250,650,265);
+}
+
+void drawMenu(){
+
+    anim += 0.03;
+
+    // TITLE
+    neonText(
+        190,
+        520,
+        "DX BALL",
+        0.7,
+        0.2,
+        1
+    );
+
+    // electric line
+    glColor3f(0,1,1);
+
+    glBegin(GL_LINE_STRIP);
+
+    for(int i=0;i<20;i++){
+
+        glVertex2f(
+            220+i*20,
+            480+sin(anim+i)*10
+        );
+    }
+
+    glEnd();
+
+    // smiley
+    glColor3f(1,1,0);
+
     glBegin(GL_POLYGON);
 
     for(int i=0;i<360;i++){
 
         float t=i*3.1416/180;
 
-        // glossy red-white effect
-        if(i%40<20)
-            glColor3f(0.0,0.8,1.0);
-        else
-            glColor3f(0.0,0.4,0.7);
-
         glVertex2f(
-            cx+cos(t)*r,
-            cy+sin(t)*r
+            400+cos(t)*28,
+            440+sin(t)*28
         );
     }
 
     glEnd();
 
-    // LIGHT REFLECTION
-    glColor4f(1,1,1,0.4);
+    // eyes
+    glColor3f(0,0,0);
 
-    glBegin(GL_POLYGON);
+    glPointSize(5);
 
-    for(int i=0;i<360;i++){
+    glBegin(GL_POINTS);
+
+    glVertex2f(390,448);
+    glVertex2f(410,448);
+
+    glEnd();
+
+    // smile
+    glBegin(GL_LINE_STRIP);
+
+    for(int i=200;i<340;i++){
 
         float t=i*3.1416/180;
 
         glVertex2f(
-            cx-20+cos(t)*18,
-            cy+20+sin(t)*18
+            400+cos(t)*12,
+            435+sin(t)*12
         );
     }
 
     glEnd();
+
+    // MENU BUTTONS
+    drawMenuButton(
+        230,
+        340,
+        "NEW GAME",
+        1
+    );
+
+    drawMenuButton(
+        230,
+        270,
+        "LEVEL SELECT",
+        0
+    );
+
+    drawMenuButton(
+        230,
+        200,
+        "EXIT",
+        0
+    );
+
+    // preview image
+    drawPreviewBox();
+
+    // bottom info
+    neonText(
+        260,
+        80,
+        "OPENGL DX BALL",
+        1,
+        1,
+        1
+    );
 }
-
-
-void drawPanel() { 
-// Glass Effect Header 
-glColor4f(0, 0.4, 0.6, 0.1); 
-glRectf(200, 450, 600, 550); 
-
-// Modern Corner Brackets (Box bad)
- glLineWidth(3);
- glColor3f(0, 1, 1); 
-glBegin(GL_LINE_STRIP); // Left Bracket
- glVertex2f(230, 450); 
-glVertex2f(200, 450); 
-glVertex2f(200, 550); 
-glVertex2f(230, 550); 
-glEnd(); 
-glBegin(GL_LINE_STRIP); // Right Bracket
- glVertex2f(570, 450);
- glVertex2f(600, 450);
- glVertex2f(600, 550); 
-glVertex2f(570, 550); 
-glEnd();
-}
- void drawButton(float x, float y, const char* txt, float r, float g, float b) { 
-// Underline Glow 
-glLineWidth(2);
- glColor4f(r, g, b, 0.8); 
-glBegin(GL_LINES); 
-glVertex2f(x, y-5); 
-glVertex2f(x+250, y-5); 
-glEnd(); 
-
-// Side Accents 
-glBegin(GL_LINES); 
-glVertex2f(x, y-5); 
-glVertex2f(x, y+10); 
-glVertex2f(x+250, y-5); 
-glVertex2f(x+250, y+10); 
-glEnd(); 
-
-// Text (Bright & Clean) 
-glColor3f(1, 1, 1); 
-drawText(x+65, y+15, txt);
- } 
-// Side-er colorful bricks drawing logic 
-void drawBricksDecor() { 
-float colors[6][3] = { {1.0, 0.0, 0.5}, // Pink
- {1.0, 0.0, 0.0}, // Red
- {1.0, 0.5, 0.0}, // Orange
- {1.0, 1.0, 0.0}, // Yellow
- {0.0, 1.0, 0.0}, // Green
- {0.0, 1.0, 1.0} // Cyan 
-};
- for(int i = 0; i < 6; i++) {
- glColor3fv(colors[i]);
- // Left Side Stacked Bricks
- glRectf(0, 500 - i * 45, 60, 540 - i * 45);
- // Right Side Stacked Bricks
- glRectf(740, 500 - i * 45, 800, 540 - i * 45);
- } 
-}
- void drawMenu() { 
-menuAnim += 0.03; 
-drawBricksDecor(); // Side-er colorful bricks 
-drawPanel();
- // Text Setup 
-glColor3f(1, 1, 1); 
-drawText(350, 510, "DX BALL"); 
-glColor3f(0, 1, 1); 
-drawText(315, 475, "CYBER EDITION");
- // HUD Buttons (Position update)
- drawButton(275, 330, "START GAME", 0, 0.8, 1); 
-drawButton(275, 250, "LEVEL SELECT", 0, 1, 0.4); 
-drawButton(275, 170, "EXIT GAME", 1, 0.2, 0.3); 
-// High-Detail Footer 
-glColor4f(1, 1, 1, 0.4);
- drawText(270, 70, "OPENGL DX BALL - ULTIMATE ARCADE"); 
-drawText(360, 40, "PRESS 1 / 2 / 3"); } 

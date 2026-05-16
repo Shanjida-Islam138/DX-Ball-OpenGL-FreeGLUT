@@ -9,17 +9,16 @@ void initLevel(int level){
 
     currentLevel = level;
 
-    // ================= লেভেল অনুযায়ী স্পিড সেট করা =================
     if (level == 1) {
-        ballDX = 4.0;  // লেভেল ১ এর নরমাল স্পিড
+        ballDX = 4.0;  
         ballDY = 4.0;
     }
     else if (level == 2) {
-        ballDX = 6.0;  // লেভেল ২ এ গতি একটু বাড়িয়ে দেওয়া হলো
+        ballDX = 6.0;  
         ballDY = 6.0;
     }
     else if (level == 3) {
-        ballDX = 7.5;  // লেভেল ৩ এ গতি আরও বাড়িয়ে দেওয়া হলো
+        ballDX = 7.5;  
         ballDY = 7.5;
     }
 

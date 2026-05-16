@@ -18,13 +18,13 @@ extern int lives;
 
 void resetGame() {
     score = 0;
-    lives = 3;         // আপনার গেমের ডিফল্ট লাইভস যত (৩ বা ৫) তা দিন
-    paddleX = 350;     // প্যাডেল মাঝখানে নিয়ে আসা
-    ballX = 400;       // বল রিসেট
+    lives = 3;         
+    paddleX = 350;     
+    ballX = 400;       
     ballY = 45;
-    ballDX = 4.0;      // লেভেল ১ এর ডিফল্ট স্পিড
+    ballDX = 4.0;      
     ballDY = 4.0;
-    initLevel(1);      // লেভেল ১ এর ইটগুলো নতুন করে জ্যান্ত করা
+    initLevel(1);      
 }
 
 void handleInput(unsigned char key, int x, int y) {
@@ -59,7 +59,7 @@ void handleInput(unsigned char key, int x, int y) {
         }
     }
     else {
-        // গেম চলাকালীন বা গেম ওভার স্ক্রিনে 'm' বা 'M' চাপলে মেইন মেনুতে যাবে এবং সব রিসেট হবে
+       
         if (key == 'm' || key == 'M') {
             resetGame();
             gameState = 0;
@@ -154,6 +154,6 @@ void mouseMove(int x, int y) {
             paddleX = 700;
     }
 
-    // এখানে কন্ডিশনাল এবং গ্লোবাল রিডিসপ্লে ক্লিন করা হয়েছে
+    
     glutPostRedisplay(); 
 }

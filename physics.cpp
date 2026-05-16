@@ -45,45 +45,45 @@ void checkPaddleCollision() {
     }
 }
 
-// ================= নতুন ফাংশন: লেভেল শেষ হয়েছে কি না চেক করা =================
+
  void checkLevelComplete() {
     int activeBricksCount = 0;
     
-    // কোনো ব্রিক এখনো স্ক্রিনে একটিভ আছে কি না চেক করা হচ্ছে
+    
     for(int i = 0; i < 50; i++) {
         if(bricks[i].active) {
-            activeBricksCount++; // একটি ব্রিকও যদি একটিভ থাকে, তবে লেভেল শেষ হয়নি
+            activeBricksCount++; 
             
         }
     }
 
-   // যদি একটি ব্রিকও বাকি না থাকে (সব ভেঙে গেছে)
+   
     if(activeBricksCount == 0) {
         if(currentLevel == 1) {
             currentLevel = 2;
-            initLevel(2); // লেভেল ২ লোড হবে
+            initLevel(2); 
             
-            // বলের পজিশন প্যাডেলের উপরে রিসেট
+           
             ballX = paddleX + 50; 
             ballY = 45; 
             
-            // বলের ডিরেকশন আবার উপরের দিকে করে দেওয়া (যাতে নিচে পড়ে না যায়)
+            
             if(ballDY < 0) ballDY *= -1; 
         }
 
         else if(currentLevel == 2) {
             currentLevel = 3;
-            initLevel(3); // লেভেল ৩ এর ব্রিক লোড হবে এবং গতি আরও বাড়বে
+            initLevel(3); 
             
-            // বলের পজিশন প্যাডেলের উপরে রিসেট করা
+            
             ballX = paddleX + 50; 
             ballY = 45;
-            
+
             if(ballDY < 0) ballDY *= -1;
         }
         else if(currentLevel == 3) {
-            // লেভেল ৩ শেষ মানে পুরো গেম ওভার (প্লেয়ার জিতে গেছে!)
-            gameState = 0; // আপাতত মেইন মেনুতে ফেরত পাঠানো হলো
+            
+            gameState = 0; 
         }
     }
 }
